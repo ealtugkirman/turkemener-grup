@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ViewTransitions } from 'next-view-transitions'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
@@ -6,7 +7,6 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -15,31 +15,81 @@ import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { FooterSection } from '../../components/sections/FooterSection'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
-      <head>
-        <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-      </head>
-      <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
+    <ViewTransitions>
+      <html
+        className={cn(GeistSans.variable, GeistMono.variable)}
+        lang="tr"
+        suppressHydrationWarning
+      >
+        <head>
+          <InitTheme />
+          <link href="/favicon.ico" rel="icon" sizes="32x32" />
+          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#202d26" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="Türkmener Grup" />
+          <link rel="apple-touch-icon" href="/images/türkmener-logo-xx.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/images/türkmener-logo-xx.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/images/türkmener-logo-xx.png" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Font loading optimization
+                (function() {
+                  function addFontsLoadedClass() {
+                    document.documentElement.classList.add('fonts-loaded');
+                  }
+                  
+                  // Check if fonts are already loaded
+                  if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(addFontsLoadedClass);
+                  }
+                  
+                  // Fallback for older browsers
+                  setTimeout(addFontsLoadedClass, 2000);
+                  
+                  // Try to load specific font weights
+                  if (document.fonts) {
+                    Promise.all([
+                      document.fonts.load('300 16px "Geist Sans"'),
+                      document.fonts.load('400 16px "Geist Sans"'),
+                      document.fonts.load('500 16px "Geist Sans"'),
+                      document.fonts.load('600 16px "Geist Sans"'),
+                      document.fonts.load('700 16px "Geist Sans"'),
+                      document.fonts.load('800 16px "Geist Sans"')
+                    ]).then(addFontsLoadedClass).catch(function() {
+                      // If font loading fails, still add the class after timeout
+                      setTimeout(addFontsLoadedClass, 1000);
+                    });
+                  }
+                })();
+              `,
             }}
           />
+        </head>
+        <body className={cn(GeistSans.variable, GeistMono.variable, 'antialiased font-sans')}>
+          <Providers>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
-      </body>
-    </html>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <FooterSection />
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   )
 }
 

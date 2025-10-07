@@ -8,6 +8,7 @@ import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { Navbar1 } from '@/components/ui/navbar1'
 
 interface HeaderClientProps {
   data: Header
@@ -29,14 +30,16 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  // Convert Payload CMS navItems to Navbar1 format
+  const navItems =
+    data?.navItems?.map(({ link }) => ({
+      title: link?.label || '',
+      href: link?.type === 'reference' ? `/${link?.reference?.value?.slug}` : link?.url || '/',
+    })) || []
+
   return (
-    <header className="container relative z-20   " {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
-        <Link href="/">
-          <Logo loading="eager" priority="high" className="invert dark:invert-0" />
-        </Link>
-        <HeaderNav data={data} />
-      </div>
-    </header>
+    <div {...(theme ? { 'data-theme': theme } : {})}>
+      <Navbar1 items={navItems} logoHref="/" />
+    </div>
   )
 }

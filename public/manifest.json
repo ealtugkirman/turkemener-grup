@@ -1,0 +1,27 @@
+{
+  "name": "Türkmener Grup",
+  "short_name": "Türkmener",
+  "description": "Enerji, inşaat ve gayrimenkul sektörlerinde mühendislik gücüyle geleceği şekillendiriyoruz.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#202d26",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/türkmener-logo-xx.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/türkmener-logo-xx.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "engineering", "construction"],
+  "lang": "tr",
+  "dir": "ltr"
+}

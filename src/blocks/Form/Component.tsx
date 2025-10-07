@@ -10,6 +10,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { sendEmail, sendConfirmationEmail, type EmailData } from '@/utilities/resend'
 
 export type FormBlockType = {
   blockName?: string
@@ -63,47 +64,46 @@ export const FormBlock: React.FC<
         }, 1000)
 
         try {
-          const req = await fetch(`${getClientSideURL()}/api/form-submissions`, {
-            body: JSON.stringify({
-              form: formID,
-              submissionData: dataToSend,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          })
-
-          const res = await req.json()
-
-          clearTimeout(loadingTimerID)
-
-          if (req.status >= 400) {
-            setIsLoading(false)
-
-            setError({
-              message: res.errors?.[0]?.message || 'Internal Server Error',
-              status: res.status,
-            })
-
-            return
+          // Convert form data to email format
+          const emailData: EmailData = {
+            name: data['full-name'] || data['name'] || 'Bilinmeyen',
+            email: data['email'] || '',
+            company: data['company'] || '',
+            phone: data['phone'] || '',
+            subject: data['subject'] || 'Form Gönderimi',
+            message: data['message'] || 'Form gönderildi',
+            formType: 'general',
           }
 
-          setIsLoading(false)
-          setHasSubmitted(true)
+          // Send email via Resend
+          const emailResult = await sendEmail(emailData)
 
-          if (confirmationType === 'redirect' && redirect) {
-            const { url } = redirect
+          if (emailResult.success) {
+            // Send confirmation email to user
+            await sendConfirmationEmail(emailData)
 
-            const redirectUrl = url
+            clearTimeout(loadingTimerID)
+            setIsLoading(false)
+            setHasSubmitted(true)
 
-            if (redirectUrl) router.push(redirectUrl)
+            if (confirmationType === 'redirect' && redirect) {
+              const { url } = redirect
+              const redirectUrl = url
+              if (redirectUrl) router.push(redirectUrl)
+            }
+          } else {
+            clearTimeout(loadingTimerID)
+            setIsLoading(false)
+            setError({
+              message: emailResult.error || 'E-posta gönderilemedi',
+            })
           }
         } catch (err) {
           console.warn(err)
+          clearTimeout(loadingTimerID)
           setIsLoading(false)
           setError({
-            message: 'Something went wrong.',
+            message: 'Bir hata oluştu. Lütfen tekrar deneyin.',
           })
         }
       }
