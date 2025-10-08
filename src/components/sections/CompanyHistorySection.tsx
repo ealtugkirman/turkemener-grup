@@ -80,7 +80,7 @@ export function CompanyHistorySection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            2003'ten bugüne kadar sürekli büyüyen ve gelişen bir kurumsal yapı inşa ettik.
+            2003&apos;ten bugüne kadar sürekli büyüyen ve gelişen bir kurumsal yapı inşa ettik.
           </motion.p>
         </motion.div>
 

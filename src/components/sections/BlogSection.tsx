@@ -142,7 +142,7 @@ export function BlogSection({ posts }: BlogSectionProps) {
                   </h3>
 
                   {/* Excerpt */}
-                  {post.excerpt && (
+                  {post.meta?.description && (
                     <p
                       className="text-[#202d26]/80 leading-relaxed text-sm mb-4 overflow-hidden"
                       style={{
@@ -151,13 +151,15 @@ export function BlogSection({ posts }: BlogSectionProps) {
                         WebkitBoxOrient: 'vertical',
                       }}
                     >
-                      {post.excerpt}
+                      {post.meta.description}
                     </p>
                   )}
 
                   {/* Meta */}
                   <div className="flex items-center justify-between text-sm text-neutral-600">
-                    <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
+                    <time dateTime={post.publishedAt || ''}>
+                      {formatDateTime(post.publishedAt || '')}
+                    </time>
                     <Link
                       href={`/blog/${post.slug}`}
                       className="inline-flex items-center gap-1 text-[#689240] hover:text-[#202d26] transition-colors"

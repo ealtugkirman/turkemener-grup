@@ -108,7 +108,7 @@ export function ActivitiesSection() {
                 ülkemizin enerji bağımsızlığına katkıda bulunuyoruz.
               </p>
               <p className="text-neutral-600 font-medium text-sm">
-                "Enerji güvenliğini güçlendiren projelerle geleceği aydınlatıyoruz."
+                &quot;Enerji güvenliğini güçlendiren projelerle geleceği aydınlatıyoruz.&quot;
               </p>
             </div>
 
@@ -154,7 +154,7 @@ export function ActivitiesSection() {
                 tamamlıyoruz.
               </p>
               <p className="text-neutral-600 font-medium text-sm">
-                "Zamanında teslim, güçlü mühendislik, kalıcı eserler."
+                &quot;Zamanında teslim, güçlü mühendislik, kalıcı eserler.&quot;
               </p>
             </div>
 
@@ -198,7 +198,7 @@ export function ActivitiesSection() {
                 mekanlar tasarlıyoruz.
               </p>
               <p className="text-neutral-600 font-medium text-sm">
-                "Her yapı, bir yaşam vizyonudur."
+                &quot;Her yapı, bir yaşam vizyonudur.&quot;
               </p>
             </div>
 

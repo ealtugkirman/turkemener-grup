@@ -45,7 +45,8 @@ export function FooterSection() {
               <span className="text-2xl font-semibold">Türkmener Grup</span>
             </Link>
             <p className="text-white/70 mb-4 leading-relaxed">
-              Türkiye'nin sürdürülebilir kalkınmasına katkı sunan güvenilir mühendislik şirketi.
+              Türkiye&apos;nin sürdürülebilir kalkınmasına katkı sunan güvenilir mühendislik
+              şirketi.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-white/60 hover:text-white transition-colors">

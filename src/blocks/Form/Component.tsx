@@ -66,12 +66,12 @@ export const FormBlock: React.FC<
         try {
           // Convert form data to email format
           const emailData: EmailData = {
-            name: data['full-name'] || data['name'] || 'Bilinmeyen',
-            email: data['email'] || '',
-            company: data['company'] || '',
-            phone: data['phone'] || '',
-            subject: data['subject'] || 'Form Gönderimi',
-            message: data['message'] || 'Form gönderildi',
+            name: (data as any)['full-name'] || (data as any)['name'] || 'Bilinmeyen',
+            email: (data as any)['email'] || '',
+            company: (data as any)['company'] || '',
+            phone: (data as any)['phone'] || '',
+            subject: (data as any)['subject'] || 'Form Gönderimi',
+            message: (data as any)['message'] || 'Form gönderildi',
             formType: 'general',
           }
 

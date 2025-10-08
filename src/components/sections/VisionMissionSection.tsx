@@ -102,7 +102,7 @@ export function VisionMissionSection() {
 
               <h3 className="text-2xl font-semibold text-[#202d26] mb-4">Vizyonumuz</h3>
               <p className="text-[#202d26]/80 leading-relaxed">
-                Türkiye'nin sürdürülebilir kalkınmasına öncülük eden, mühendislik alanında
+                Türkiye&apos;nin sürdürülebilir kalkınmasına öncülük eden, mühendislik alanında
                 uluslararası standartlarda hizmet sunan, yenilikçi çözümleriyle sektörde referans
                 alınan bir kuruluş olmak. Enerji, inşaat ve gayrimenkul alanlarında geliştirdiğimiz
                 projelerle ülkemizin geleceğine yatırım yaparken, global pazarda da saygın bir Türk

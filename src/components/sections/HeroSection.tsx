@@ -14,7 +14,7 @@ export function HeroSection() {
         <div className="max-w-3xl">
           <p className="text-blue-400 font-medium mb-3 text-lg">Güçlü Altyapı, Sağlam Gelecek</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Türkiye'nin Kalkınmasına
+            Türkiye&apos;nin Kalkınmasına
             <br />
             Mühendislik Gücümüzle Katkı Sağlıyoruz
           </h1>

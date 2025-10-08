@@ -20,7 +20,7 @@ export function BlogPost({ post }: BlogPostProps) {
           href="/blog"
           className="inline-flex items-center text-[#689240] hover:text-[#689240]/80 font-medium"
         >
-          ← Blog'a Dön
+          ← Blog&apos;a Dön
         </Link>
       </div>
 
@@ -30,7 +30,9 @@ export function BlogPost({ post }: BlogPostProps) {
         {post.categories && post.categories.length > 0 && (
           <div className="mb-6">
             <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-[#689240]/10 text-[#689240]">
-              {post.categories[0].title}
+              {typeof post.categories[0] === 'string'
+                ? post.categories[0]
+                : post.categories[0].title}
             </span>
           </div>
         )}
@@ -42,12 +44,18 @@ export function BlogPost({ post }: BlogPostProps) {
 
         {/* Meta */}
         <div className="flex items-center gap-6 text-[#202d26]/60 mb-8">
-          <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
-          {post.author && <span>Yazar: {post.author}</span>}
+          <time dateTime={post.publishedAt || ''}>{formatDateTime(post.publishedAt || '')}</time>
+          {post.authors && post.authors.length > 0 && (
+            <span>
+              Yazar: {typeof post.authors[0] === 'string' ? post.authors[0] : post.authors[0].name}
+            </span>
+          )}
         </div>
 
         {/* Excerpt */}
-        {post.excerpt && <p className="text-xl text-[#689240] leading-relaxed">{post.excerpt}</p>}
+        {post.meta?.description && (
+          <p className="text-xl text-[#689240] leading-relaxed">{post.meta.description}</p>
+        )}
       </header>
 
       {/* Hero Image */}
@@ -73,16 +81,16 @@ export function BlogPost({ post }: BlogPostProps) {
       )}
 
       {/* Tags */}
-      {post.tags && post.tags.length > 0 && (
+      {post.categories && post.categories.length > 0 && (
         <div className="mt-12 pt-8 border-t border-[#202d26]/10">
           <h3 className="text-lg font-semibold text-[#202d26] mb-4">Etiketler</h3>
           <div className="flex flex-wrap gap-2">
-            {post.tags.map((tag, index) => (
+            {post.categories.map((category, index) => (
               <span
                 key={index}
                 className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#689240]/10 text-[#689240]"
               >
-                #{tag}
+                #{typeof category === 'string' ? category : category.title}
               </span>
             ))}
           </div>

@@ -53,7 +53,9 @@ export function BlogList({ posts }: BlogListProps) {
               {post.categories && post.categories.length > 0 && (
                 <div className="mb-4">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#689240]/10 text-[#689240]">
-                    {post.categories[0].title}
+                    {typeof post.categories[0] === 'string'
+                      ? post.categories[0]
+                      : post.categories[0].title}
                   </span>
                 </div>
               )}
@@ -64,13 +66,15 @@ export function BlogList({ posts }: BlogListProps) {
               </h2>
 
               {/* Excerpt */}
-              {post.excerpt && (
-                <p className="text-[#202d26]/70 mb-4 line-clamp-3">{post.excerpt}</p>
+              {post.meta?.description && (
+                <p className="text-[#202d26]/70 mb-4 line-clamp-3">{post.meta.description}</p>
               )}
 
               {/* Meta */}
               <div className="flex items-center justify-between text-sm text-[#202d26]/60">
-                <time dateTime={post.publishedAt}>{formatDateTime(post.publishedAt)}</time>
+                <time dateTime={post.publishedAt || ''}>
+                  {formatDateTime(post.publishedAt || '')}
+                </time>
                 <Link
                   href={`/blog/${post.slug}`}
                   className="text-[#689240] hover:text-[#689240]/80 font-medium"

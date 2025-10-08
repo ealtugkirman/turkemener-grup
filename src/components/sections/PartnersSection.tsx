@@ -51,7 +51,7 @@ export function PartnersSection() {
             başarıyla tamamlıyoruz.
           </p>
           <p className="text-white/80 font-medium text-lg">
-            "Her sözleşme bizim için bir iş değil; bir taahhüttür."
+            &quot;Her sözleşme bizim için bir iş değil; bir taahhüttür.&quot;
           </p>
         </div>
 

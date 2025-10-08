@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 const STYLE_ID = 'hero1-animations'
 
@@ -25,7 +26,11 @@ const getRootTheme = () => {
   return 'light'
 }
 
-const useThemeSync = () => {
+const useThemeSync = (): [
+  'dark' | 'light',
+  React.Dispatch<React.SetStateAction<'dark' | 'light'>>,
+  boolean,
+] => {
   const [theme, setTheme] = useState<'dark' | 'light'>('light')
   const [mounted, setMounted] = useState(false)
 
@@ -55,7 +60,7 @@ const useThemeSync = () => {
     const onMedia = () => sync()
     media?.addEventListener('change', onMedia)
 
-    const onStorage = (event) => {
+    const onStorage = (event: StorageEvent) => {
       if (event.key === 'hero-theme' || event.key === 'bento-theme') sync()
     }
 
@@ -255,7 +260,7 @@ function HeroMonochromeLaunch() {
         /* ignore */
       }
     }
-    setTheme(next)
+    setTheme(next as 'dark' | 'light')
   }
 
   const palette = useMemo(
@@ -301,14 +306,14 @@ function HeroMonochromeLaunch() {
     alt: "Modern engineering and construction project showcasing Türkmener Grup's expertise",
   }
 
-  const setSpotlight = (event) => {
+  const setSpotlight = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.currentTarget
     const rect = target.getBoundingClientRect()
     target.style.setProperty('--spot-x', `${event.clientX - rect.left}px`)
     target.style.setProperty('--spot-y', `${event.clientY - rect.top}px`)
   }
 
-  const clearSpotlight = (event) => {
+  const clearSpotlight = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.currentTarget
     target.style.removeProperty('--spot-x')
     target.style.removeProperty('--spot-y')
@@ -387,7 +392,7 @@ function HeroMonochromeLaunch() {
                 transition={{ duration: 0.8, delay: 0.8 }}
                 viewport={{ once: true }}
               >
-                Türkiye'nin Kalkınmasına Mühendislik Gücümüzle Katkı Sağlıyoruz
+                Türkiye&apos;nin Kalkınmasına Mühendislik Gücümüzle Katkı Sağlıyoruz
               </motion.h1>
               <motion.p
                 className={`max-w-2xl text-base md:text-lg ${palette.subtle}`}
@@ -408,7 +413,7 @@ function HeroMonochromeLaunch() {
               transition={{ duration: 0.8, delay: 1.2 }}
               viewport={{ once: true }}
             >
-              <a
+              <Link
                 href="/projeler"
                 className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition duration-500 ${palette.border} hover:translate-y-[-2px]`}
               >
@@ -416,7 +421,7 @@ function HeroMonochromeLaunch() {
                 <span aria-hidden className="text-lg">
                   ↗
                 </span>
-              </a>
+              </Link>
             </motion.div>
           </motion.div>
 

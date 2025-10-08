@@ -49,7 +49,9 @@ export function BlogNavigation({ relatedPosts }: BlogNavigationProps) {
                 {post.categories && post.categories.length > 0 && (
                   <div className="mb-4">
                     <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#689240]/10 text-[#689240]">
-                      {post.categories[0].title}
+                      {typeof post.categories[0] === 'string'
+                        ? post.categories[0]
+                        : post.categories[0].title}
                     </span>
                   </div>
                 )}
@@ -60,8 +62,10 @@ export function BlogNavigation({ relatedPosts }: BlogNavigationProps) {
                 </h3>
 
                 {/* Excerpt */}
-                {post.excerpt && (
-                  <p className="text-[#202d26]/70 mb-4 line-clamp-3 text-sm">{post.excerpt}</p>
+                {post.meta?.description && (
+                  <p className="text-[#202d26]/70 mb-4 line-clamp-3 text-sm">
+                    {post.meta.description}
+                  </p>
                 )}
 
                 {/* Read More */}

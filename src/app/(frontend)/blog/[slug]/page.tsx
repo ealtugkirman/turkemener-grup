@@ -107,7 +107,7 @@ export function generateMetadata({ params }: Props) {
 
     return {
       title: `${post.title} - Türkmener Grup Blog`,
-      description: post.excerpt || 'Türkmener Grup blog yazısı.',
+      description: post.meta?.description || 'Türkmener Grup blog yazısı.',
     }
   }
 }

@@ -115,9 +115,9 @@ export function ContactSection() {
             Projeleriniz için güvenilir bir çözüm ortağı
           </h3>
           <p className="text-lg text-[#202d26]/80 max-w-3xl mx-auto">
-            Enerji, inşaat veya gayrimenkul alanındaki projeleriniz için Türkmener Grup'un deneyimli
-            ekibiyle iletişime geçin. Proje teklifleriniz, yatırım ortaklığı fırsatları veya diğer
-            işbirliği önerileriniz için bizimle iletişime geçebilirsiniz.
+            Enerji, inşaat veya gayrimenkul alanındaki projeleriniz için Türkmener Grup&apos;un
+            deneyimli ekibiyle iletişime geçin. Proje teklifleriniz, yatırım ortaklığı fırsatları
+            veya diğer işbirliği önerileriniz için bizimle iletişime geçebilirsiniz.
           </p>
         </div>
 

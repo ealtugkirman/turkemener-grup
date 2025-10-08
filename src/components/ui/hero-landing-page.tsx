@@ -49,7 +49,7 @@ export function TuringLanding() {
           {/* Left Content */}
           <div className="max-w-[800px]">
             <h1 className="text-[80px] font-light leading-[1.1] mb-8 tracking-[-2px]">
-              Türkiye'nin
+              Türkiye&apos;nin
               <br />
               Güvenilir Ortağı
             </h1>

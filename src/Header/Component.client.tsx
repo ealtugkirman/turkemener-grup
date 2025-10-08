@@ -34,7 +34,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const navItems =
     data?.navItems?.map(({ link }) => ({
       title: link?.label || '',
-      href: link?.type === 'reference' ? `/${link?.reference?.value?.slug}` : link?.url || '/',
+      href:
+        link?.type === 'reference'
+          ? `/${typeof link?.reference?.value === 'string' ? link?.reference?.value : link?.reference?.value?.slug}`
+          : link?.url || '/',
     })) || []
 
   return (

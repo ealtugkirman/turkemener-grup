@@ -13,7 +13,7 @@ import { ContactSection } from '@/components/sections/ContactSection'
 import { FooterSection } from '@/components/sections/FooterSection'
 
 export default async function HomePage() {
-  let posts = []
+  let posts: any[] = []
 
   try {
     const payload = await getPayload({ config: configPromise })
