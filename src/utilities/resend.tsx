@@ -2,7 +2,16 @@ import { Resend } from 'resend'
 import { render } from '@react-email/render'
 import { Html, Head, Body, Container, Text, Section, Heading, Hr } from '@react-email/components'
 
-const resend = new Resend(process.env.RESEND_API_KEY || 're_fN4H2apq_MA6uCG925JQEEkW7Yhz1eNs7')
+// Resend API Key kontrolü ve güvenli başlatma
+const getResendInstance = () => {
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY environment variable is not set!')
+    return null
+  }
+  return new Resend(process.env.RESEND_API_KEY)
+}
+
+const resend = getResendInstance()
 
 export interface EmailData {
   name: string
@@ -180,6 +189,10 @@ const ConfirmationEmailTemplate = ({ data }: { data: EmailData }) => {
 
 export async function sendEmail(data: EmailData) {
   try {
+    if (!resend) {
+      return { success: false, error: 'Resend API key is not configured' }
+    }
+
     const { name, email, subject, formType = 'contact' } = data
 
     const emailSubject =
@@ -188,8 +201,8 @@ export async function sendEmail(data: EmailData) {
     const emailHtml = await render(AdminEmailTemplate({ data }))
 
     const result = await resend.emails.send({
-      from: 'Türkmener Grup <altug@digitalvoyage.agency>',
-      to: ['altug@digitalvoyage.agency'],
+      from: process.env.FROM_EMAIL || 'Türkmener Grup <noreply@turkmenergrup.com>',
+      to: [process.env.ADMIN_EMAIL || 'admin@turkmenergrup.com'],
       subject: emailSubject,
       html: emailHtml,
       replyTo: email,
@@ -204,12 +217,16 @@ export async function sendEmail(data: EmailData) {
 
 export async function sendConfirmationEmail(data: EmailData) {
   try {
+    if (!resend) {
+      return { success: false, error: 'Resend API key is not configured' }
+    }
+
     const { name, email } = data
 
     const emailHtml = await render(ConfirmationEmailTemplate({ data }))
 
     const result = await resend.emails.send({
-      from: 'Türkmener Grup <altug@digitalvoyage.agency>',
+      from: process.env.FROM_EMAIL || 'Türkmener Grup <noreply@turkmenergrup.com>',
       to: [email],
       subject: 'Talebiniz Alındı - Türkmener Grup',
       html: emailHtml,

@@ -9,12 +9,16 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { projectCategories } from './project-categories'
+import { projects } from './projects'
 
 const collections: CollectionSlug[] = [
   'categories',
   'media',
   'pages',
   'posts',
+  'projects',
+  'project-categories',
   'forms',
   'form-submissions',
 ]
@@ -306,6 +310,23 @@ export const seed = async ({
         ],
       },
     }),
+    
+    // Seed Project Categories
+    ...projectCategories.map((category) =>
+      payload.create({
+        collection: 'project-categories',
+        data: category,
+      }),
+    ),
+    
+    // Seed Projects
+    ...projects.map((project) =>
+      payload.create({
+        collection: 'projects',
+        data: project,
+      }),
+    ),
+    
     // payload.updateGlobal({
     //   slug: 'footer',
     //   data: {
