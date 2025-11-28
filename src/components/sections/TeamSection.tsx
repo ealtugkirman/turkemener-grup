@@ -2,159 +2,238 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { ArrowRight, Linkedin, Twitter, Mail } from 'lucide-react'
 import Image from 'next/image'
 
-export function TeamSection() {
-  const teamMembers = [
-    {
-      name: 'Ahmet Türkmen',
-      position: 'Genel Müdür',
-      department: 'Yönetim',
-      image:
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '25+ Yıl',
-      description:
-        'Enerji sektöründe 25 yıllık deneyime sahip, mühendislik ve yönetim alanlarında uzman.',
-    },
-    {
-      name: 'Fatma Yılmaz',
-      position: 'Proje Müdürü',
-      department: 'İnşaat',
-      image:
-        'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '18+ Yıl',
-      description:
-        'İnşaat mühendisliği ve proje yönetimi konularında uzman, büyük ölçekli projelerde deneyimli.',
-    },
-    {
-      name: 'Mehmet Kaya',
-      position: 'Teknik Müdür',
-      department: 'Enerji',
-      image:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '20+ Yıl',
-      description:
-        'Enerji sistemleri ve sürdürülebilir teknolojiler konularında uzman, yenilikçi çözümler geliştiriyor.',
-    },
-    {
-      name: 'Ayşe Demir',
-      position: 'Kalite Müdürü',
-      department: 'Kalite',
-      image:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '15+ Yıl',
-      description:
-        'Kalite yönetim sistemleri ve süreç iyileştirme konularında uzman, ISO standartlarında deneyimli.',
-    },
-    {
-      name: 'Can Özkan',
-      position: 'İş Geliştirme Müdürü',
-      department: 'Pazarlama',
-      image:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '12+ Yıl',
-      description:
-        'Stratejik planlama ve iş geliştirme konularında uzman, yeni pazarlar ve fırsatlar konusunda deneyimli.',
-    },
-    {
-      name: 'Zeynep Arslan',
-      position: 'Sürdürülebilirlik Uzmanı',
-      department: 'Çevre',
-      image:
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-      experience: '10+ Yıl',
-      description:
-        'Çevre dostu projeler ve sürdürülebilir kalkınma konularında uzman, yeşil teknolojiler konusunda deneyimli.',
-    },
-  ]
+interface TeamMember {
+  id: string
+  name: string
+  slug: string
+  position: string
+  department: string
+  bio: string
+  photo?: {
+    url: string
+    alt: string
+    width: number
+    height: number
+  }
+  email?: string
+  linkedin?: string
+  twitter?: string
+  featured: boolean
+  order: number
+}
+
+interface TeamSectionProps {
+  teamMembers: TeamMember[]
+}
+
+export function TeamSection({ teamMembers }: TeamSectionProps) {
+  const departmentLabels = {
+    yonetim: 'Yönetim',
+    enerji: 'Enerji',
+    insaat: 'İnşaat',
+    gayrimenkul: 'Gayrimenkul',
+    yazilim: 'Yazılım',
+    ik: 'İnsan Kaynakları',
+    muhasebe: 'Muhasebe',
+    pazarlama: 'Pazarlama',
+  }
+
+  const departmentColors = {
+    yonetim: 'from-purple-500 to-purple-600',
+    enerji: 'from-green-500 to-green-600',
+    insaat: 'from-blue-500 to-blue-600',
+    gayrimenkul: 'from-orange-500 to-orange-600',
+    yazilim: 'from-indigo-500 to-indigo-600',
+    ik: 'from-pink-500 to-pink-600',
+    muhasebe: 'from-red-500 to-red-600',
+    pazarlama: 'from-yellow-500 to-yellow-600',
+  }
+
+  if (!teamMembers || teamMembers.length === 0) {
+    return null
+  }
 
   return (
-    <div className="relative bg-neutral-50 py-24">
-      <div className="container mx-auto px-6 md:px-10 lg:px-16 xl:px-24">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
           <motion.div
-            className="flex items-center justify-center gap-4 text-xs uppercase tracking-[0.4em] text-neutral-600 mb-6"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <span className="rounded-full border border-neutral-200/80 px-4 py-1 bg-white/60">
-              Ekip
+            <span className="inline-block rounded-full border border-[#bde094]/30 bg-[#bde094]/10 px-6 py-2 text-sm uppercase tracking-[0.34em] font-light text-[#bde094] shadow-md mb-6">
+              Ekibimiz
             </span>
-            <span>Liderlik</span>
+            <h2 className="text-4xl md:text-5xl font-lato font-thin leading-tight text-[#202d26] mb-6">
+              Deneyimli <span className="font-light text-[#bde094]">Ekibimiz</span>
+            </h2>
+            <p className="text-xl font-lato font-light text-[#202d26]/70 max-w-3xl mx-auto leading-relaxed">
+              Alanında uzman, deneyimli ve tutkulu ekibimizle projelerinizi en yüksek kalitede
+              hayata geçiriyoruz.
+            </p>
           </motion.div>
 
-          <motion.h2
-            className="text-4xl md:text-5xl font-semibold leading-[1.05] tracking-tight text-[#202d26] mb-6"
-            initial={{ opacity: 0, y: 20 }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative bg-white rounded-2xl p-8 shadow-lg border border-[#bde094]/20 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              >
+                <div className="flex flex-col items-center text-center">
+                  {/* Photo */}
+                  <div className="relative mb-6">
+                    <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                      {member.photo ? (
+                        <Image
+                          src={member.photo.url}
+                          alt={member.photo.alt || member.name}
+                          width={member.photo.width}
+                          height={member.photo.height}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#bde094] to-[#a8d080] flex items-center justify-center">
+                          <span className="text-white text-2xl font-bold">
+                            {member.name
+                              .split(' ')
+                              .map((n) => n[0])
+                              .join('')}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    {member.featured && (
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                        <span className="text-white text-sm">⭐</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-[#202d26] font-lato mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-[#bde094] font-lato font-medium mb-2">{member.position}</p>
+                    <Badge
+                      variant="secondary"
+                      className="text-xs bg-[#bde094]/10 text-[#bde094] border-[#bde094]/30"
+                    >
+                      {departmentLabels[member.department as keyof typeof departmentLabels] ||
+                        member.department}
+                    </Badge>
+                  </div>
+
+                  {/* Bio */}
+                  {member.bio && (
+                    <p className="text-[#202d26]/70 font-lato font-light leading-relaxed mb-6 text-sm">
+                      {member.bio.length > 120 ? `${member.bio.substring(0, 120)}...` : member.bio}
+                    </p>
+                  )}
+
+                  {/* Social Links */}
+                  <div className="flex items-center gap-3 mb-6">
+                    {member.email && (
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="w-8 h-8 bg-[#bde094]/10 rounded-full flex items-center justify-center text-[#bde094] hover:bg-[#bde094] hover:text-white transition-colors duration-300"
+                        aria-label="E-posta"
+                      >
+                        <Mail className="w-4 h-4" />
+                      </a>
+                    )}
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 bg-[#bde094]/10 rounded-full flex items-center justify-center text-[#bde094] hover:bg-[#bde094] hover:text-white transition-colors duration-300"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                      </a>
+                    )}
+                    {member.twitter && (
+                      <a
+                        href={member.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-8 h-8 bg-[#bde094]/10 rounded-full flex items-center justify-center text-[#bde094] hover:bg-[#bde094] hover:text-white transition-colors duration-300"
+                        aria-label="Twitter"
+                      >
+                        <Twitter className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+
+                  {/* View Profile Button */}
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="border-[#bde094] text-[#bde094] hover:bg-[#bde094] hover:text-[#202d26] transition-all duration-300"
+                  >
+                    <Link href={`/ekibimiz/${member.slug}`}>
+                      Profili Gör
+                      <ArrowRight className="ml-2 w-3 h-3" />
+                    </Link>
+                  </Button>
+                </div>
+
+                {/* Hover effect overlay */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#bde094]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
+            className="text-center mt-16"
           >
-            Deneyimli Liderlik Ekibimiz
-          </motion.h2>
-
-          <motion.p
-            className="text-xl text-neutral-600 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Alanında uzman, deneyimli ve vizyoner liderlerimizle başarıya ulaşıyoruz.
-          </motion.p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.name}
-              className="group relative bg-white rounded-2xl overflow-hidden border border-neutral-200/50 hover:border-[#689240]/30 transition-all duration-300 hover:shadow-xl"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                    <span className="text-xs font-medium text-[#689240]">{member.experience}</span>
-                  </div>
-                </div>
+            <div className="bg-gradient-to-r from-[#bde094]/10 to-[#bde094]/5 rounded-2xl p-8 border border-[#bde094]/20">
+              <h3 className="text-2xl font-lato font-thin text-[#202d26] mb-4">
+                Ekibimize Katılmak İster misiniz?
+              </h3>
+              <p className="text-[#202d26]/70 font-lato font-light mb-6 max-w-2xl mx-auto">
+                Yetenekli ve tutkulu profesyoneller arıyoruz. Türkmener Grup ailesine katılarak
+                kariyerinizi şekillendirin.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  asChild
+                  className="bg-[#bde094] hover:bg-[#a8d080] text-[#202d26] font-medium"
+                >
+                  <Link href="/kariyer">Açık Pozisyonlar</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-[#bde094] text-[#bde094] hover:bg-[#bde094] hover:text-[#202d26]"
+                >
+                  <Link href="/ekibimiz">Tüm Ekip</Link>
+                </Button>
               </div>
-
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#202d26] mb-1 group-hover:text-[#689240] transition-colors duration-300">
-                  {member.name}
-                </h3>
-
-                <p className="text-[#689240] font-medium mb-2">{member.position}</p>
-
-                <p className="text-sm text-neutral-500 mb-4">{member.department}</p>
-
-                <p className="text-sm text-neutral-600 leading-relaxed">{member.description}</p>
-              </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

@@ -1,10 +1,10 @@
 import React from 'react'
-import { ContactSection } from '@/components/sections/ContactSection'
+import { TurkmenContactSection } from '@/components/sections/TurkmenContactSection'
 
 export default function IletisimPage() {
   return (
     <>
-      <ContactSection />
+      <TurkmenContactSection />
     </>
   )
 }

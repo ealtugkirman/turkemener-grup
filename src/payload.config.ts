@@ -13,6 +13,10 @@ import { Posts } from './collections/Posts'
 import { Projects } from './collections/Projects'
 import { ProjectCategories } from './collections/ProjectCategories'
 import { Users } from './collections/Users'
+import { Careers } from './collections/Careers'
+import { TeamMembers } from './collections/TeamMembers'
+import { Services } from './collections/Services'
+import { ContactSubmissions } from './collections/ContactSubmissions'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -63,7 +67,19 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Media, Categories, Users, ProjectCategories, Projects],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    ProjectCategories,
+    Projects,
+    Careers,
+    TeamMembers,
+    Services,
+    ContactSubmissions,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header],
   plugins: [

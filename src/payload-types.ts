@@ -74,6 +74,10 @@ export interface Config {
     users: User;
     'project-categories': ProjectCategory;
     projects: Project;
+    careers: Career;
+    'team-members': TeamMember;
+    services: Service;
+    'contact-submissions': ContactSubmission;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -91,6 +95,10 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     'project-categories': ProjectCategoriesSelect<false> | ProjectCategoriesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    careers: CareersSelect<false> | CareersSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -809,6 +817,170 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers".
+ */
+export interface Career {
+  id: string;
+  title: string;
+  slug: string;
+  department: 'enerji' | 'insaat' | 'gayrimenkul' | 'yazilim' | 'ik' | 'muhasebe' | 'pazarlama';
+  location: 'istanbul' | 'ankara' | 'izmir' | 'bursa' | 'uzaktan';
+  type: 'full-time' | 'part-time' | 'remote' | 'internship';
+  experience?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  requirements?:
+    | {
+        requirement: string;
+        id?: string | null;
+      }[]
+    | null;
+  benefits?:
+    | {
+        benefit: string;
+        id?: string | null;
+      }[]
+    | null;
+  salary?: {
+    min?: number | null;
+    max?: number | null;
+    currency?: ('TRY' | 'USD' | 'EUR') | null;
+    negotiable?: boolean | null;
+  };
+  applicationDeadline?: string | null;
+  startDate?: string | null;
+  featured?: boolean | null;
+  published?: boolean | null;
+  publishedAt?: string | null;
+  applicants?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members".
+ */
+export interface TeamMember {
+  id: string;
+  name: string;
+  slug: string;
+  position: string;
+  department: 'yonetim' | 'enerji' | 'insaat' | 'gayrimenkul' | 'yazilim' | 'ik' | 'muhasebe' | 'pazarlama';
+  bio?: string | null;
+  photo?: (string | null) | Media;
+  email?: string | null;
+  phone?: string | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  order?: number | null;
+  featured?: boolean | null;
+  published?: boolean | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  icon?: string | null;
+  category: 'enerji' | 'insaat' | 'gayrimenkul' | 'yazilim' | 'danismanlik';
+  image?: (string | null) | Media;
+  gallery?:
+    | {
+        image: string | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?:
+    | {
+        feature: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  pricing?: {
+    startingFrom?: number | null;
+    currency?: ('TRY' | 'USD' | 'EUR') | null;
+    unit?: ('project' | 'hour' | 'day' | 'month' | 'year') | null;
+    customPricing?: boolean | null;
+  };
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  featured?: boolean | null;
+  published?: boolean | null;
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  company?: string | null;
+  phone?: string | null;
+  subject?: string | null;
+  message: string;
+  formType: 'contact' | 'career' | 'quote' | 'general';
+  cv?: (string | null) | Media;
+  coverLetter?: (string | null) | Media;
+  status: 'new' | 'reviewing' | 'replied' | 'closed';
+  priority?: ('low' | 'normal' | 'high' | 'urgent') | null;
+  assignedTo?: (string | null) | User;
+  notes?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -976,6 +1148,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'careers';
+        value: string | Career;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: string | TeamMember;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: string | ContactSubmission;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1387,6 +1575,142 @@ export interface ProjectsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers_select".
+ */
+export interface CareersSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  department?: T;
+  location?: T;
+  type?: T;
+  experience?: T;
+  description?: T;
+  requirements?:
+    | T
+    | {
+        requirement?: T;
+        id?: T;
+      };
+  benefits?:
+    | T
+    | {
+        benefit?: T;
+        id?: T;
+      };
+  salary?:
+    | T
+    | {
+        min?: T;
+        max?: T;
+        currency?: T;
+        negotiable?: T;
+      };
+  applicationDeadline?: T;
+  startDate?: T;
+  featured?: T;
+  published?: T;
+  publishedAt?: T;
+  applicants?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  position?: T;
+  department?: T;
+  bio?: T;
+  photo?: T;
+  email?: T;
+  phone?: T;
+  linkedin?: T;
+  twitter?: T;
+  order?: T;
+  featured?: T;
+  published?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  content?: T;
+  icon?: T;
+  category?: T;
+  image?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        description?: T;
+        id?: T;
+      };
+  pricing?:
+    | T
+    | {
+        startingFrom?: T;
+        currency?: T;
+        unit?: T;
+        customPricing?: T;
+      };
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  featured?: T;
+  published?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  company?: T;
+  phone?: T;
+  subject?: T;
+  message?: T;
+  formType?: T;
+  cv?: T;
+  coverLetter?: T;
+  status?: T;
+  priority?: T;
+  assignedTo?: T;
+  notes?: T;
+  ipAddress?: T;
+  userAgent?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -6,37 +6,46 @@ import { motion } from 'framer-motion'
 export function CompanyHistorySection() {
   const historyItems = [
     {
-      year: '2003',
-      title: 'Kuruluş',
+      year: '1975-1990',
+      title: "İstanbul'da İlk Adımlar",
       description:
-        'Türkmener Grup, mühendislik temelli bir yaklaşımla enerji sektöründe faaliyet göstermeye başladı.',
+        'Fatih, Osmanbey, Etiler ve Aksaray bölgelerinde gerçekleştirilen konut ve ticari projelerle inşaat ve gayrimenkul sektörüne giriş yapıldı. Bu dönemde kazanılan bilgi ve deneyim, şirketin gelecekteki kurumsal yapısının temelini oluşturdu.',
     },
     {
-      year: '2008',
-      title: 'İnşaat Sektörüne Giriş',
+      year: '1990',
+      title: "Ankara'ya Taşınma ve Yeni Başlangıç",
       description:
-        'Altyapı projelerinde uzmanlaşarak inşaat sektöründe de faaliyet göstermeye başladık.',
+        "Faaliyetlerin merkezi Ankara'ya taşındı. Gayrimenkul geliştirme, proje yönetimi ve yatırım danışmanlığı alanlarında yeni bir dönem başlatıldı.",
     },
     {
-      year: '2012',
-      title: 'Gayrimenkul Geliştirme',
-      description: 'Sürdürülebilir gayrimenkul projeleri geliştirerek portföyümüzü genişlettik.',
-    },
-    {
-      year: '2018',
-      title: 'Teknoloji Entegrasyonu',
+      year: '2000-2010',
+      title: 'Kurumsal Yapılanma ve Büyüme',
       description:
-        'Akıllı bina sistemleri ve enerji verimliliği teknolojilerini projelerimize entegre ettik.',
+        'Gayrimenkul ve inşaat alanlarındaki yatırımlar genişletildi, şirket yapısı profesyonel bir temele oturtuldu.',
     },
     {
-      year: '2020',
-      title: 'Sürdürülebilirlik Odaklı Dönüşüm',
-      description: 'Çevre dostu projeler ve yeşil enerji çözümleri geliştirmeye odaklandık.',
+      year: '2010-2015',
+      title: 'Enerji Sektörüne Giriş',
+      description:
+        'Güneş Enerjisi Santrali (GES) projeleri için büyük ölçekli arazilerin teminiyle enerji sektörüne adım atıldı. Bu dönemde ilk büyük ölçekli proje çalışmaları hayata geçirildi.',
     },
     {
-      year: '2023',
-      title: '20. Yıl Kutlaması',
-      description: '20 yıllık deneyimimizi kutlayarak geleceğe dönük vizyonumuzu paylaştık.',
+      year: '2016',
+      title: 'Yazılım ve Dijital Dönüşüm',
+      description:
+        'Dijital dönüşüm süreci başlatılarak yazılım alanına yatırım yapıldı. Proje yönetimi, yatırım planlaması ve veri analitiği süreçleri teknoloji tabanlı sistemlerle desteklenmeye başladı.',
+    },
+    {
+      year: '2023-2024',
+      title: 'Büyük Enerji Projeleri',
+      description:
+        'İstanbul Havalimanı (İGA), Asaş, Eskişehir, Van bölgelerinde gerçekleştirilen büyük ölçekli arazi temini çalışmalarıyla enerji sektöründeki faaliyetler yeni bir ivme kazandı.',
+    },
+    {
+      year: '2025 ve Sonrası',
+      title: 'Entegre Büyüme ve Gelecek Vizyonu',
+      description:
+        'Türkmener Grup A.Ş.; gayrimenkul, enerji, inşaat ve yazılım sektörlerinde entegre çözümler sunan güvenilir ve yenilikçi bir marka olarak büyümesini sürdürmektedir.',
     },
   ]
 
@@ -56,12 +65,7 @@ export function CompanyHistorySection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-          >
-            <span className="rounded-full border border-neutral-200/80 px-4 py-1 bg-white/60">
-              Tarihçe
-            </span>
-            <span>Yolculuğumuz</span>
-          </motion.div>
+          ></motion.div>
 
           <motion.h2
             className="text-4xl md:text-5xl font-semibold leading-[1.05] tracking-tight text-[#202d26] mb-6"
@@ -70,7 +74,7 @@ export function CompanyHistorySection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            Yirmi Yıllık Başarı Hikayesi
+            TARİHÇE
           </motion.h2>
 
           <motion.p
@@ -80,7 +84,7 @@ export function CompanyHistorySection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            2003&apos;ten bugüne kadar sürekli büyüyen ve gelişen bir kurumsal yapı inşa ettik.
+            Şirket Tarihçesi
           </motion.p>
         </motion.div>
 

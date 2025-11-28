@@ -11,11 +11,11 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { TurkmenFooter } from '@/components/sections/TurkmenFooter'
 import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
-import { FooterSection } from '../../components/sections/FooterSection'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -85,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
             <Header />
             <main className="min-h-screen">{children}</main>
-            <FooterSection />
+            <TurkmenFooter />
           </Providers>
         </body>
       </html>

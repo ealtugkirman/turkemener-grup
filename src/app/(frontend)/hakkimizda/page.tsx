@@ -1,16 +1,16 @@
 import React from 'react'
-import { AboutSection } from '@/components/sections/AboutSection'
 import { CompanyHistorySection } from '@/components/sections/CompanyHistorySection'
-import { AchievementsSection } from '@/components/sections/AchievementsSection'
+import { MessageFromCEOSection } from '@/components/sections/MessageFromCEOSection'
+import { VisionMissionSection } from '@/components/sections/VisionMissionSection'
 import { CompanyValuesSection } from '@/components/sections/CompanyValuesSection'
 
 export default function HakkimizdaPage() {
   return (
     <>
-      <AboutSection />
+      <MessageFromCEOSection />
       <CompanyHistorySection />
+      <VisionMissionSection />
       <CompanyValuesSection />
-      <AchievementsSection />
     </>
   )
 }

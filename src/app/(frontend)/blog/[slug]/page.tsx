@@ -4,7 +4,6 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { BlogPost } from '@/components/blog/BlogPost'
 import { BlogNavigation } from '@/components/blog/BlogNavigation'
-import type { Post } from '@/payload-types'
 
 interface Props {
   params: Promise<{ slug: string }>

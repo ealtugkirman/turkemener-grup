@@ -1,0 +1,130 @@
+import React from 'react'
+import Link from 'next/link'
+import { Metadata } from 'next'
+import { FaaliyetAlanSection } from '@/components/sections/FaaliyetAlanSection'
+
+export const metadata: Metadata = {
+  title: 'Yazılım & Danışmanlık - Faaliyet Alanları | Türkmener Grup',
+  description:
+    'Türkmener Grup, bağımsız yazılım ekibiyle farklı sektörlere özel yazılım, otomasyon ve dijital yönetim çözümleri sunmaktadır.',
+  keywords:
+    'yazılım, dijital dönüşüm, otomasyon, veri analizi, dijital yönetim, teknoloji danışmanlığı',
+}
+
+export default function YazilimDanismanlikPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[600px] overflow-hidden bg-[#151c17]">
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/videos/turkmener-yazılım-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-sky-900/20"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
+        {/* Hero Content */}
+        <div className="absolute bottom-8 left-4 sm:bottom-12 sm:left-10 lg:bottom-20 lg:left-20 z-20 max-w-[90%] sm:max-w-[80%] lg:max-w-[700px] pr-4 sm:pr-8">
+          <div className="flex flex-col gap-5 sm:gap-6 lg:gap-8">
+            <div className="flex flex-col gap-2">
+              <span className="mb-2 rounded-full border border-[#84c7d0]/30 bg-[#84c7d0]/10 px-5 py-1.5 text-xs lg:text-sm uppercase tracking-[0.34em] text-[#84c7d0] font-light shadow-md">
+                Yazılım & Danışmanlık
+              </span>
+              <div className="flex flex-wrap gap-3 text-xs lg:text-sm text-[#84c7d0]/80 font-light">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#84c7d0]/60"></span>
+                  Özel Yazılım Çözümleri
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#84c7d0]/60"></span>
+                  Dijital Dönüşüm
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#84c7d0]/60"></span>
+                  Veri Analizi
+                </span>
+              </div>
+            </div>
+            <h1 className="text-white text-3xl sm:text-5xl lg:text-6xl font-lato font-thin leading-tight sm:leading-[52px] lg:leading-[1.1] drop-shadow-xl">
+              Dijital Geleceği
+              <span className="text-[#84c7d0] block">İnşa Ediyoruz</span>
+            </h1>
+            <p className="text-white font-lato font-light text-sm sm:text-base lg:text-xl leading-relaxed max-w-full lg:max-w-[700px] drop-shadow">
+              Özel yazılım çözümleri, otomasyon sistemleri ve veri odaklı dijital dönüşüm ile iş
+              süreçlerinizi optimize ediyoruz.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Yazılım Intro Section */}
+      <FaaliyetAlanSection
+        title="YAZILIM & DANIŞMANLIK"
+        description="Teknolojiyle büyüyen, dijital geleceği inşa eden vizyon. Türkmener Grup, bağımsız yazılım ekibiyle farklı sektörlere özel yazılım, otomasyon ve dijital yönetim çözümleri sunmaktadır. Gayrimenkulden enerjiye, üretimden hizmet sektörüne kadar birçok alanda veri odaklı yazılım sistemleri geliştirerek iş süreçlerini dönüştürür. Amacımız, teknolojiyi her alanda verimliliğin ve sürdürülebilirliğin temel gücü haline getirmektir."
+        icon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-16 w-16 text-[#84c7d0]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"
+            />
+          </svg>
+        }
+        bgColor="bg-gradient-to-b from-white to-gray-50"
+        textColor="bg-[#1a3b42]"
+        accentColor="[#84c7d0]"
+        linkPath="/faaliyet-alanlari/yazilim-danismanlik"
+      />
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 text-center border border-[#84c7d0]/10">
+            <span className="inline-block rounded-full border border-[#84c7d0]/30 bg-[#84c7d0]/10 px-6 py-2 text-sm uppercase tracking-[0.34em] text-[#84c7d0] font-light shadow-md mb-4">
+              İletişim
+            </span>
+            <h3 className="text-2xl md:text-3xl font-lato font-thin text-gray-900 mb-4">
+              Dijital Dönüşüm İçin
+              <span className="text-[#84c7d0] block">Bizimle İletişime Geçin</span>
+            </h3>
+            <p className="text-lg text-gray-600 mb-8 font-lato font-light">
+              İşinizi ileriye taşıyacak teknolojik çözümler için yanınızdayız.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/iletisim"
+                className="inline-flex items-center gap-2 rounded-full border border-[#84c7d0]/30 bg-[#84c7d0]/10 px-8 py-4 text-sm font-medium text-[#84c7d0] transition hover:scale-105 hover:shadow-md hover:bg-[#84c7d0]/40 duration-200 font-lato"
+              >
+                İletişime Geçin
+                <span aria-hidden className="text-lg">
+                  →
+                </span>
+              </Link>
+              <Link
+                href="/projeler"
+                className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/80 backdrop-blur-sm px-8 py-4 text-sm font-medium text-gray-700 transition hover:scale-105 hover:shadow-md hover:bg-gray-50 duration-200 font-lato"
+              >
+                Projelerimizi İnceleyin
+                <span aria-hidden className="text-lg">
+                  ↗
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}

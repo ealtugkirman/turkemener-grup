@@ -10,6 +10,7 @@ interface NavItem {
   title: string
   href: string
   description?: string
+  dropdown?: { title: string; href: string }[]
 }
 
 interface NavbarProps {
@@ -22,21 +23,37 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [isLightBackground, setIsLightBackground] = React.useState(false)
+  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null)
   const pathname = usePathname()
 
   // Check if we're on the home page
   const isHomePage = pathname === '/'
 
-  // Website sections navigation items
+  // Website sections navigation items with dropdowns
   const navigationItems = [
-    { title: 'Ana Sayfa', href: '/' },
-    { title: 'Hakkımızda', href: '/hakkimizda' },
-    { title: 'Vizyon & Misyon', href: '/vizyon-misyon' },
-    { title: 'Faaliyet Alanları', href: '/faaliyet-alanlari' },
-    { title: 'Projeler', href: '/projeler' },
-    { title: 'Değerler', href: '/degerler' },
+    {
+      title: 'Hakkımızda',
+      href: '/hakkimizda',
+      dropdown: [
+        { title: 'Kurumucuzdan Mesaj', href: '/hakkimizda/kurucumuzdan-mesaj' },
+        { title: 'Tarihçe', href: '/hakkimizda/tarihce' },
+        { title: 'Vizyon & Misyon', href: '/vizyon-misyon' },
+        { title: 'Değerlerimiz', href: '/degerler' },
+      ],
+    },
+    {
+      title: 'Faaliyet Alanları',
+      href: '/faaliyet-alanlari',
+      dropdown: [
+        { title: 'Enerji', href: '/faaliyet-alanlari/enerji' },
+        { title: 'İnşaat', href: '/faaliyet-alanlari/insaat' },
+        { title: 'Gayrimenkul', href: '/faaliyet-alanlari/gayrimenkul' },
+        { title: 'Yazılım ve Danışmanlık', href: '/faaliyet-alanlari/yazilim-danismanlik' },
+      ],
+    },
+    { title: 'Kariyer', href: '/kariyer' },
+    { title: 'Medya', href: '/medya' },
     { title: 'İletişim', href: '/iletisim' },
-    { title: 'Blog', href: '/blog' },
   ]
 
   // Function to detect background color and determine contrast
@@ -240,23 +257,61 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
           <div className="hidden lg:flex items-center justify-end flex-1 ml-4 md:ml-8 mr-2 md:mr-4">
             <div className="flex items-center space-x-4 md:space-x-6">
               {navigationItems.map((item, index) => (
-                <Link
+                <div
                   key={index}
-                  href={item.href}
-                  className={`
-                    relative text-xs md:text-sm transition-all duration-300 ease-out group cursor-pointer
-                    ${getTextColor()} ${getHoverTextColor()}
-                  `}
+                  className="relative group"
+                  onMouseEnter={() => item.dropdown && setActiveDropdown(item.title)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  {item.title}
-                  <span
+                  <Link
+                    href={item.href}
                     className={`
-                      absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-500 ease-out
-                      group-hover:w-full transform origin-left
-                      ${getUnderlineColor()}
+                      relative text-xs md:text-sm transition-all duration-300 ease-out cursor-pointer flex items-center gap-1
+                      ${getTextColor()} ${getHoverTextColor()}
                     `}
-                  ></span>
-                </Link>
+                  >
+                    {item.title}
+                    {item.dropdown && (
+                      <svg
+                        className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    )}
+                    <span
+                      className={`
+                        absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-500 ease-out
+                        group-hover:w-full transform origin-left
+                        ${getUnderlineColor()}
+                      `}
+                    ></span>
+                  </Link>
+
+                  {/* Dropdown Menu */}
+                  {item.dropdown && activeDropdown === item.title && (
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-xl border border-gray-200/20 rounded-lg shadow-xl z-50">
+                      <div className="py-2">
+                        {item.dropdown.map((dropdownItem, dropdownIndex) => (
+                          <Link
+                            key={dropdownIndex}
+                            href={dropdownItem.href}
+                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+                          >
+                            {dropdownItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
               {children}
             </div>
@@ -313,18 +368,37 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
             `}
           >
             {navigationItems.map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`
-                  block text-xs sm:text-sm font-thin transition-all duration-300 ease-out
-                  py-3 px-3 sm:px-4 rounded-md backdrop-blur-sm cursor-pointer
-                  ${mobileNavText} ${mobileNavHoverText} ${mobileNavHoverBg}
-                `}
-              >
-                {item.title}
-              </Link>
+              <div key={index}>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`
+                    block text-xs sm:text-sm font-thin transition-all duration-300 ease-out
+                    py-3 px-3 sm:px-4 rounded-md backdrop-blur-sm cursor-pointer
+                    ${mobileNavText} ${mobileNavHoverText} ${mobileNavHoverBg}
+                  `}
+                >
+                  {item.title}
+                </Link>
+                {item.dropdown && (
+                  <div className="ml-4 space-y-1">
+                    {item.dropdown.map((dropdownItem, dropdownIndex) => (
+                      <Link
+                        key={dropdownIndex}
+                        href={dropdownItem.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`
+                          block text-xs sm:text-sm font-thin transition-all duration-300 ease-out
+                          py-2 px-3 sm:px-4 rounded-md backdrop-blur-sm cursor-pointer
+                          ${mobileNavText} ${mobileNavHoverText} ${mobileNavHoverBg}
+                        `}
+                      >
+                        • {dropdownItem.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
