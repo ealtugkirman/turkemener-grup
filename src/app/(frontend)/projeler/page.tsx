@@ -1,9 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '../../../payload.config'
-import { notFound } from 'next/navigation'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { ProjectFilters } from '@/components/projects/ProjectFilters'
-import { Project } from '@/payload-types'
 
 export default async function ProjectsPage() {
   const payload = await getPayload({ config: configPromise })

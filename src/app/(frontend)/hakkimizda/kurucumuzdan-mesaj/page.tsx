@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const page = () => {
@@ -84,12 +85,14 @@ const page = () => {
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
-              <img
+              <Image
                 src="/about/husreturkmen.jpg"
                 alt="Hüsrev TÜRKMEN - CEO"
-                className="absolute inset-0 w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = 'https://via.placeholder.com/600x800?text=CEO+Portrait'
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
+                onError={() => {
+                  // Fallback handled by Next.js Image component
                 }}
               />
             </div>

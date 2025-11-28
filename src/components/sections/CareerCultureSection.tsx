@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Badge } from '@/components/ui/badge'
 import { Target, Users, Lightbulb, Heart, Award, Handshake, TrendingUp, Globe } from 'lucide-react'
 
 export function CareerCultureSection() {

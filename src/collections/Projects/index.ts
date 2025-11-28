@@ -6,8 +6,6 @@ import { isAnyone } from '../../access/isAnyone'
 import { isLoggedIn } from '../../access/isLoggedIn'
 import { revalidatePage } from '../Pages/hooks/revalidatePage'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { slugField } from '../../fields/slug'
 
 export const Projects: CollectionConfig = {
   slug: 'projects',

@@ -5,7 +5,6 @@ import { isAdminOrSelf } from '../../access/isAdminOrSelf'
 import { isAnyone } from '../../access/isAnyone'
 import { isLoggedIn } from '../../access/isLoggedIn'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { slugField } from '../../fields/slug'
 
 export const Services: CollectionConfig = {
   slug: 'services',

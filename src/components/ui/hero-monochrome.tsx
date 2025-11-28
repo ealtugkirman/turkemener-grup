@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import SplitType from 'split-type'
-import Link from 'next/link'
 import ShinyText from '@/components/ShinyText'
 import { useLanguage } from '@/contexts/LanguageContext'
 

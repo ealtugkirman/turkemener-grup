@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
 import { Metadata } from 'next'
+import type { Career } from '@/payload-types'
 
 export const metadata: Metadata = {
   title: 'Kariyer - Türkmener Grup',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default async function CareerPage() {
-  let careers: any[] = []
+  let careers: Career[] = []
 
   try {
     const payload = await getPayload({ config: configPromise })
@@ -65,7 +66,6 @@ export default async function CareerPage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-xl font-medium text-gray-900 mb-2">{career.title}</h3>
-                        <p className="text-gray-600 mb-4">{career.shortDescription}</p>
                         <div className="flex items-center gap-4 text-sm text-gray-500">
                           <span>{career.location}</span>
                           <span>{career.type}</span>

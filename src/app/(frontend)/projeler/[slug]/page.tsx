@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '../../../../payload.config'
 import { notFound } from 'next/navigation'
-import { Project } from '@/payload-types'
+import Image from 'next/image'
 import RichText from '@/components/RichText'
 
 type Props = {
@@ -41,10 +41,13 @@ export default async function ProjectPage({ params }: Props) {
         typeof projectData.heroImage === 'object' &&
         projectData.heroImage.url ? (
           <div className="absolute inset-0">
-            <img
+            <Image
               src={projectData.heroImage.url}
               alt={projectData.heroImage.alt || projectData.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
             />
             <div className="absolute inset-0 bg-black/40" />
           </div>
@@ -78,11 +81,15 @@ export default async function ProjectPage({ params }: Props) {
                     {projectData.gallery.map((item, index) => (
                       <div key={index} className="relative group">
                         {typeof item.image === 'object' && item.image?.url && (
-                          <img
-                            src={item.image.url}
-                            alt={item.image.alt || item.caption || `Proje görseli ${index + 1}`}
-                            className="w-full h-64 object-cover rounded-lg"
-                          />
+                          <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                            <Image
+                              src={item.image.url}
+                              alt={item.image.alt || item.caption || `Proje görseli ${index + 1}`}
+                              fill
+                              className="object-cover rounded-lg"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          </div>
                         )}
                         {item.caption && (
                           <p className="mt-2 text-sm text-[#202d26]/70">{item.caption}</p>

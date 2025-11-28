@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Image from 'next/image'
 import type { ComponentProps, ReactNode } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import {
@@ -29,9 +30,8 @@ const footerLinks: FooterSection[] = [
     label: 'Kurumsal',
     links: [
       { title: 'Hakkımızda', href: '/hakkimizda' },
-      { title: 'Vizyon & Misyon', href: '/vizyon-misyon' },
-      { title: 'Değerlerimiz', href: '/degerler' },
-      { title: 'Ekibimiz', href: '/ekibimiz' },
+      { title: 'Vizyon & Misyon', href: '/hakkimizda/vizyon-misyon' },
+      { title: 'Değerlerimiz', href: '/hakkimizda/degerler' },
       { title: 'Kariyer', href: '/kariyer' },
     ],
   },
@@ -43,15 +43,6 @@ const footerLinks: FooterSection[] = [
       { title: 'Gayrimenkul', href: '/faaliyet-alanlari/gayrimenkul' },
       { title: 'Yazılım & Danışmanlık', href: '/faaliyet-alanlari/yazilim-danismanlik' },
       { title: 'Projelerimiz', href: '/projeler' },
-    ],
-  },
-  {
-    label: 'Hizmetler',
-    links: [
-      { title: 'Mühendislik Hizmetleri', href: '/hizmetler/muhendislik' },
-      { title: 'Proje Yönetimi', href: '/hizmetler/proje-yonetimi' },
-      { title: 'Danışmanlık', href: '/hizmetler/danismanlik' },
-      { title: 'Teknik Destek', href: '/hizmetler/teknik-destek' },
     ],
   },
   {
@@ -86,11 +77,11 @@ export function TurkmenFooter() {
           {/* Logo and Company Info */}
           <AnimatedContainer className="space-y-4">
             <Link href="/" className="inline-block mb-6 flex items-center space-x-3">
-              <img
+              <Image
                 src="/images/türkmener-logo-xx.png"
                 alt="Türkmener Grup"
-                width="40"
-                height="40"
+                width={40}
+                height={40}
                 className="object-contain"
               />
               <span className="text-2xl font-semibold font-lato">Türkmener Grup</span>
@@ -106,13 +97,13 @@ export function TurkmenFooter() {
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-[#bde094] flex-shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm font-lato font-light">
-                  Maslak Mah. Büyükdere Cad. No:123, Sarıyer, İstanbul
+                  Alexender Dupçek Cad. No:47/6 Çankaya Ankara
                 </span>
               </div>
               <div className="flex items-start">
                 <Phone className="h-5 w-5 mr-3 text-[#bde094] flex-shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm font-lato font-light">
-                  +90 (212) 123 45 67
+                  +90 (507) 990 35 02
                 </span>
               </div>
               <div className="flex items-start">

@@ -2,9 +2,8 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
-import { cn } from '@/utilities/ui'
 
 interface NavItem {
   title: string
@@ -19,7 +18,7 @@ interface NavbarProps {
   logoHref?: string
 }
 
-export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
+export function Navbar1({ items: _items, children, logoHref = '/' }: NavbarProps) {
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [isLightBackground, setIsLightBackground] = React.useState(false)
@@ -35,10 +34,10 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
       title: 'Hakkımızda',
       href: '/hakkimizda',
       dropdown: [
-        { title: 'Kurumucuzdan Mesaj', href: '/hakkimizda/kurucumuzdan-mesaj' },
+        { title: 'Kurucumuzdan Mesaj', href: '/hakkimizda/kurucumuzdan-mesaj' },
         { title: 'Tarihçe', href: '/hakkimizda/tarihce' },
-        { title: 'Vizyon & Misyon', href: '/vizyon-misyon' },
-        { title: 'Değerlerimiz', href: '/degerler' },
+        { title: 'Vizyon & Misyon', href: '/hakkimizda/vizyon-misyon' },
+        { title: 'Değerlerimiz', href: '/hakkimizda/degerler' },
       ],
     },
     {
@@ -104,7 +103,7 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
             totalSamples++
           }
         }
-      } catch (error) {
+      } catch {
         // Ignore errors and continue
       }
     })
@@ -167,6 +166,7 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
       window.removeEventListener('scroll', handleScrollWithTheme)
       window.removeEventListener('resize', detectBackgroundContrast)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getTextColor = () => {
@@ -195,13 +195,13 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
       : 'bg-gradient-to-r from-white to-gray-200'
   }
 
-  const getHoverBgColor = () => {
-    // Force white hover background on non-home pages
-    if (!isHomePage) {
-      return 'hover:bg-white/10'
-    }
-    return isLightBackground ? 'hover:bg-gray-900/10' : 'hover:bg-white/10'
-  }
+  // const getHoverBgColor = () => {
+  //   // Force white hover background on non-home pages
+  //   if (!isHomePage) {
+  //     return 'hover:bg-white/10'
+  //   }
+  //   return isLightBackground ? 'hover:bg-gray-900/10' : 'hover:bg-white/10'
+  // }
 
   // Mobile dark mode helpers
   const mobileNavBg = 'bg-[#202d26]/95' // Türkmener brand color with opacity
@@ -231,9 +231,11 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
               href={logoHref}
               className="hover:opacity-80 transition-all duration-300 ease-out cursor-pointer flex items-center space-x-2"
             >
-              <img
+              <Image
                 src="/images/türkmener-logo-xx.png"
                 alt="Türkmener Grup"
+                width={120}
+                height={48}
                 className={`
                   w-auto
                   transition-all duration-500 ease-out
@@ -297,17 +299,23 @@ export function Navbar1({ items, children, logoHref = '/' }: NavbarProps) {
 
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.title && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white/95 backdrop-blur-xl border border-gray-200/20 rounded-lg shadow-xl z-50">
-                      <div className="py-2">
-                        {item.dropdown.map((dropdownItem, dropdownIndex) => (
-                          <Link
-                            key={dropdownIndex}
-                            href={dropdownItem.href}
-                            className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
-                          >
-                            {dropdownItem.title}
-                          </Link>
-                        ))}
+                    <div 
+                      className="absolute top-full left-0 pt-2 w-64 z-50"
+                      onMouseEnter={() => setActiveDropdown(item.title)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <div className="bg-white/95 backdrop-blur-xl border border-gray-200/20 rounded-lg shadow-xl">
+                        <div className="py-2">
+                          {item.dropdown.map((dropdownItem, dropdownIndex) => (
+                            <Link
+                              key={dropdownIndex}
+                              href={dropdownItem.href}
+                              className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+                            >
+                              {dropdownItem.title}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}

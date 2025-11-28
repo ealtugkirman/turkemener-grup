@@ -51,6 +51,7 @@ const AdminEmailTemplate = ({ data }: { data: EmailData }) => {
           <Section
             style={{ textAlign: 'center', padding: '30px 30px 20px', backgroundColor: '#202d26' }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://turkmenergrup.com/images/türkmener-logo-xx.png"
               alt="Türkmener Grup"
@@ -144,6 +145,7 @@ const ConfirmationEmailTemplate = ({ data }: { data: EmailData }) => {
           <Section
             style={{ textAlign: 'center', padding: '30px 30px 20px', backgroundColor: '#202d26' }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://turkmenergrup.com/images/türkmener-logo-xx.png"
               alt="Türkmener Grup"
@@ -221,7 +223,7 @@ export async function sendConfirmationEmail(data: EmailData) {
       return { success: false, error: 'Resend API key is not configured' }
     }
 
-    const { name, email } = data
+    const { email } = data
 
     const emailHtml = await render(ConfirmationEmailTemplate({ data }))
 

@@ -44,16 +44,16 @@ export function TeamSection({ teamMembers }: TeamSectionProps) {
     pazarlama: 'Pazarlama',
   }
 
-  const departmentColors = {
-    yonetim: 'from-purple-500 to-purple-600',
-    enerji: 'from-green-500 to-green-600',
-    insaat: 'from-blue-500 to-blue-600',
-    gayrimenkul: 'from-orange-500 to-orange-600',
-    yazilim: 'from-indigo-500 to-indigo-600',
-    ik: 'from-pink-500 to-pink-600',
-    muhasebe: 'from-red-500 to-red-600',
-    pazarlama: 'from-yellow-500 to-yellow-600',
-  }
+  // const departmentColors = {
+  //   yonetim: 'from-purple-500 to-purple-600',
+  //   enerji: 'from-green-500 to-green-600',
+  //   insaat: 'from-blue-500 to-blue-600',
+  //   gayrimenkul: 'from-orange-500 to-orange-600',
+  //   yazilim: 'from-indigo-500 to-indigo-600',
+  //   ik: 'from-pink-500 to-pink-600',
+  //   muhasebe: 'from-red-500 to-red-600',
+  //   pazarlama: 'from-yellow-500 to-yellow-600',
+  // }
 
   if (!teamMembers || teamMembers.length === 0) {
     return null

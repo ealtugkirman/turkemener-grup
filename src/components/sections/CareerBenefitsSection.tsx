@@ -125,7 +125,7 @@ export function CareerBenefitsSection() {
             viewport={{ once: true }}
             className="flex flex-wrap justify-center gap-3 mb-12"
           >
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <Badge
                 key={category}
                 variant={category === 'Tümü' ? 'default' : 'outline'}

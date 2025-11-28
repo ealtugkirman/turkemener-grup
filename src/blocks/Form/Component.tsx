@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
-import { getClientSideURL } from '@/utilities/getURL'
 import { sendEmail, sendConfirmationEmail, type EmailData } from '@/utilities/resend'
 
 export type FormBlockType = {
@@ -53,10 +52,11 @@ export const FormBlock: React.FC<
       const submitForm = async () => {
         setError(undefined)
 
-        const dataToSend = Object.entries(data).map(([name, value]) => ({
-          field: name,
-          value,
-        }))
+        // Form data prepared for submission
+        // const dataToSend = Object.entries(data).map(([name, value]) => ({
+        //   field: name,
+        //   value,
+        // }))
 
         // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
@@ -65,13 +65,15 @@ export const FormBlock: React.FC<
 
         try {
           // Convert form data to email format
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const dataAny = data as any
           const emailData: EmailData = {
-            name: (data as any)['full-name'] || (data as any)['name'] || 'Bilinmeyen',
-            email: (data as any)['email'] || '',
-            company: (data as any)['company'] || '',
-            phone: (data as any)['phone'] || '',
-            subject: (data as any)['subject'] || 'Form Gönderimi',
-            message: (data as any)['message'] || 'Form gönderildi',
+            name: dataAny['full-name'] || dataAny['name'] || 'Bilinmeyen',
+            email: dataAny['email'] || '',
+            company: dataAny['company'] || '',
+            phone: dataAny['phone'] || '',
+            subject: dataAny['subject'] || 'Form Gönderimi',
+            message: dataAny['message'] || 'Form gönderildi',
             formType: 'general',
           }
 
@@ -110,7 +112,7 @@ export const FormBlock: React.FC<
 
       void submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, redirect, confirmationType],
   )
 
   return (

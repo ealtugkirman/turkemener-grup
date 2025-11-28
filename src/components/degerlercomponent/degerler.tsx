@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Badge } from '@/components/ui/badge'
-import { Lightbulb, Repeat, Sparkle, ShieldCheck, Award, Globe2, Users } from 'lucide-react'
+import { Lightbulb, Repeat, ShieldCheck, Award } from 'lucide-react'
 
 type ValueProps = {
   icon: React.ReactNode
@@ -57,7 +57,7 @@ const DegerlerSection: React.FC = () => {
         </div>
         {/* Value Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {values.map((value, idx) => (
+          {values.map((value) => (
             <div
               key={value.title}
               className={`

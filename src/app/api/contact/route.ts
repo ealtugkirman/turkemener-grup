@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     // Check if it's form data (file upload) or JSON
     const contentType = request.headers.get('content-type')
-    let formData: any = {}
+    let formData: Record<string, unknown> = {}
 
     if (contentType?.includes('multipart/form-data')) {
       const form = await request.formData()
@@ -28,7 +28,17 @@ export async function POST(request: NextRequest) {
       formType = 'contact',
       cv,
       coverLetter,
-    } = formData
+    } = formData as {
+      name?: string
+      email?: string
+      company?: string
+      phone?: string
+      subject?: string
+      message?: string
+      formType?: string
+      cv?: File
+      coverLetter?: File
+    }
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -47,6 +57,7 @@ export async function POST(request: NextRequest) {
       const cvUpload = await payload.create({
         collection: 'media',
         data: {},
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         file: cvBuffer as any,
       })
       cvMedia = cvUpload.id
@@ -57,6 +68,7 @@ export async function POST(request: NextRequest) {
       const coverLetterUpload = await payload.create({
         collection: 'media',
         data: {},
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         file: coverLetterBuffer as any,
       })
       coverLetterMedia = coverLetterUpload.id
@@ -72,7 +84,7 @@ export async function POST(request: NextRequest) {
         phone,
         subject,
         message,
-        formType,
+        formType: (formType as 'contact' | 'career' | 'quote' | 'general') || 'contact',
         cv: cvMedia,
         coverLetter: coverLetterMedia,
         status: 'new',
@@ -81,13 +93,13 @@ export async function POST(request: NextRequest) {
     })
 
     const emailData: EmailData = {
-      name,
-      email,
-      company,
-      phone,
-      subject,
-      message,
-      formType,
+      name: name || '',
+      email: email || '',
+      company: company || '',
+      phone: phone || '',
+      subject: subject || '',
+      message: message || '',
+      formType: ((formType as string) === 'career' ? 'general' : (formType as 'contact' | 'quote' | 'general')) || 'contact',
     }
 
     // Send email to admin

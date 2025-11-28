@@ -1,8 +1,6 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 interface FaaliyetAlanSectionProps {
   title: string
@@ -21,7 +19,7 @@ export function FaaliyetAlanSection({
   bgColor,
   textColor,
   accentColor,
-  linkPath,
+  linkPath: _linkPath,
 }: FaaliyetAlanSectionProps) {
   return (
     <section className={`py-24 ${bgColor}`}>

@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
 import { ContactCard } from '@/components/ui/contact-card'
 import { MailIcon, PhoneIcon, MapPinIcon, Upload, FileText, Send } from 'lucide-react'
 import { Input } from '@/components/ui/input'
@@ -88,7 +87,7 @@ export function CareerApplicationSection() {
         setSubmitStatus('error')
         setErrorMessage(result.error || 'Başvurunuz gönderilemedi')
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
       setErrorMessage('Bir hata oluştu. Lütfen tekrar deneyin.')
     } finally {

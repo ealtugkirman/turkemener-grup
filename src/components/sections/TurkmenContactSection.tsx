@@ -68,7 +68,7 @@ export function TurkmenContactSection() {
         setSubmitStatus('error')
         setErrorMessage(result.error || 'E-posta gönderilemedi')
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
       setErrorMessage('Bir hata oluştu. Lütfen tekrar deneyin.')
     } finally {
@@ -91,8 +91,8 @@ export function TurkmenContactSection() {
     'w-full bg-[#355d1f] hover:bg-[#233c13] text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed'
 
   // Strong contrasting classes for headings/texts
-  const headingClass = 'text-[#1a281f] font-bold tracking-tight'
-  const descriptionClass = 'text-[#20372b] font-medium'
+  // const headingClass = 'text-[#1a281f] font-bold tracking-tight'
+  // const descriptionClass = 'text-[#20372b] font-medium'
 
   // Label direct text color (for span) – update to even darker
   const labelSpanTextColor = 'text-[#000000]'

@@ -224,10 +224,13 @@ export default function FaaliyetAlanlariPage() {
                   <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-[#bde094]/20 z-0"></div>
                   <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-[#e6c480]/20 z-0"></div>
                   <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
-                    <img
+                    <Image
                       src="/media/energy.webp"
                       alt="Entegre Çözümler"
+                      width={800}
+                      height={600}
                       className="w-full h-auto"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>
