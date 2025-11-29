@@ -1,11 +1,19 @@
 'use client'
 
-import React, { useState } from 'react'
+import type React from 'react'
+
+import { useState, useEffect } from 'react'
+
 import { ContactCard } from '@/components/ui/contact-card'
+
 import { MailIcon, PhoneIcon, MapPinIcon, ClockIcon } from 'lucide-react'
+
 import { Input } from '@/components/ui/input'
+
 import { Button } from '@/components/ui/button'
+
 import { Label } from '@/components/ui/label'
+
 import { Textarea } from '@/components/ui/textarea'
 
 export function TurkmenContactSection() {
@@ -20,6 +28,16 @@ export function TurkmenContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [focusedField, setFocusedField] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (submitStatus === 'success') {
+      const timer = setTimeout(() => {
+        setSubmitStatus('idle')
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [submitStatus])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -76,29 +94,8 @@ export function TurkmenContactSection() {
     }
   }
 
-  // More contrasting color variables
-  const accentBorder = 'border-[#638324]/60' // dark green border for inputs
-  const accentFocus = 'focus:border-[#355d1f] focus:ring-[#638324]/25' // darker accent focus
-  const accentBgLight = 'bg-white'
-  const formSectionBg = 'bg-[#e3efd7]' // lighter bg for contrast
-  const successBg = 'bg-green-100 border-green-700'
-  const successText = 'text-green-900'
-  const errorBg = 'bg-red-100 border-red-700'
-  const errorText = 'text-red-900'
-  // Make labelText even darker
-  const labelText = 'text-[#010402]' // darker than before
-  const buttonClass =
-    'w-full bg-[#355d1f] hover:bg-[#233c13] text-white font-medium disabled:opacity-60 disabled:cursor-not-allowed'
-
-  // Strong contrasting classes for headings/texts
-  // const headingClass = 'text-[#1a281f] font-bold tracking-tight'
-  // const descriptionClass = 'text-[#20372b] font-medium'
-
-  // Label direct text color (for span) – update to even darker
-  const labelSpanTextColor = 'text-[#000000]'
-
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-6xl">
           <ContactCard
@@ -106,20 +103,20 @@ export function TurkmenContactSection() {
             description="Enerji, inşaat veya gayrimenkul alanındaki projeleriniz için Türkmener Grup'un deneyimli ekibiyle iletişime geçin. Proje teklifleriniz, yatırım ortaklığı fırsatları veya diğer işbirliği önerileriniz için bizimle iletişime geçebilirsiniz."
             contactInfo={[
               {
-                icon: MailIcon,
-                label: 'E-posta',
-                value: 'info@turkmenergrup.com',
+                icon: MapPinIcon,
+                label: 'Adres',
+                value: 'Alexender Dupçek Cad. No:47/6 Çankaya Ankara',
+                className: 'col-span-2',
               },
               {
                 icon: PhoneIcon,
                 label: 'Telefon',
-                value: '+90 (212) 123 45 67',
+                value: '+90 (507) 990 35 02',
               },
               {
-                icon: MapPinIcon,
-                label: 'Adres',
-                value: 'Maslak Mah. Büyükdere Cad. No:123, Sarıyer, İstanbul',
-                className: 'col-span-2',
+                icon: MailIcon,
+                label: 'E-posta',
+                value: 'iletisim@turkmenergrup.com',
               },
               {
                 icon: ClockIcon,
@@ -128,29 +125,38 @@ export function TurkmenContactSection() {
                 className: 'col-span-2',
               },
             ]}
-            className={`${accentBgLight} border-[#638324]/20 shadow-xl`}
-            formSectionClassName={formSectionBg}
+            className="bg-white border-gray-200 shadow-xl hover:shadow-gray-200 transition-shadow duration-500"
+            formSectionClassName="bg-white"
           >
-            <form onSubmit={handleSubmit} className="w-full space-y-4">
-              {/* Success Message */}
+            <form onSubmit={handleSubmit} className="w-full space-y-5 text-black">
               {submitStatus === 'success' && (
-                <div className={`mb-4 p-4 ${successBg} border rounded-lg`}>
-                  <p className={`font-medium text-sm ${successText}`}>
-                    ✅ Talebiniz başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.
+                <div className="mb-4 p-4 bg-green-50 border-2 border-green-400 rounded-xl shadow-sm animate-in slide-in-from-top-2 duration-500">
+                  <p className="font-semibold text-sm text-green-900 flex items-center gap-2">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-400 text-white text-xs">
+                      ✓
+                    </span>
+                    Talebiniz başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.
                   </p>
                 </div>
               )}
 
-              {/* Error Message */}
               {submitStatus === 'error' && (
-                <div className={`mb-4 p-4 ${errorBg} border rounded-lg`}>
-                  <p className={`font-medium text-sm ${errorText}`}>❌ {errorMessage}</p>
+                <div className="mb-4 p-4 bg-red-50 border-2 border-red-500 rounded-xl shadow-sm animate-in slide-in-from-top-2 duration-500">
+                  <p className="font-semibold text-sm text-red-900 flex items-center gap-2">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs">
+                      !
+                    </span>
+                    {errorMessage}
+                  </p>
                 </div>
               )}
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="name" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>Ad Soyad *</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '50ms' }}
+              >
+                <Label htmlFor="name" className="text-black font-semibold text-sm">
+                  Ad Soyad <span className="text-green-600">*</span>
                 </Label>
                 <Input
                   id="name"
@@ -158,16 +164,25 @@ export function TurkmenContactSection() {
                   type="text"
                   value={formData.name}
                   onChange={handleInputChange}
+                  onFocus={() => setFocusedField('name')}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Ad Soyad"
                   required
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white`}
+                  className={`border-2 bg-white transition-all duration-300 text-black ${
+                    focusedField === 'name'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="email" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>E-posta *</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '100ms' }}
+              >
+                <Label htmlFor="email" className="text-black font-semibold text-sm">
+                  E-posta <span className="text-green-600">*</span>
                 </Label>
                 <Input
                   id="email"
@@ -175,16 +190,25 @@ export function TurkmenContactSection() {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="E-posta Adresi"
+                  onFocus={() => setFocusedField('email')}
+                  onBlur={() => setFocusedField(null)}
+                  placeholder="ornek@email.com"
                   required
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white`}
+                  className={`border-2 bg-white transition-all duration-300 text-black ${
+                    focusedField === 'email'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="company" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>Şirket</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '150ms' }}
+              >
+                <Label htmlFor="company" className="text-black font-semibold text-sm">
+                  Şirket
                 </Label>
                 <Input
                   id="company"
@@ -192,15 +216,24 @@ export function TurkmenContactSection() {
                   type="text"
                   value={formData.company}
                   onChange={handleInputChange}
+                  onFocus={() => setFocusedField('company')}
+                  onBlur={() => setFocusedField(null)}
                   placeholder="Şirket Adı"
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white`}
+                  className={`border-2 bg-white transition-all duration-300 text-black ${
+                    focusedField === 'company'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="phone" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>Telefon</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '200ms' }}
+              >
+                <Label htmlFor="phone" className="text-black font-semibold text-sm">
+                  Telefon
                 </Label>
                 <Input
                   id="phone"
@@ -208,15 +241,24 @@ export function TurkmenContactSection() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder="Telefon Numarası"
+                  onFocus={() => setFocusedField('phone')}
+                  onBlur={() => setFocusedField(null)}
+                  placeholder="+90 (5XX) XXX XX XX"
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white`}
+                  className={`border-2 bg-white transition-all duration-300 text-black ${
+                    focusedField === 'phone'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="subject" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>Konu</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '250ms' }}
+              >
+                <Label htmlFor="subject" className="text-black font-semibold text-sm">
+                  Konu
                 </Label>
                 <Input
                   id="subject"
@@ -224,36 +266,56 @@ export function TurkmenContactSection() {
                   type="text"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  placeholder="Konu"
+                  onFocus={() => setFocusedField('subject')}
+                  onBlur={() => setFocusedField(null)}
+                  placeholder="Konu Başlığı"
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white`}
+                  className={`border-2 bg-white transition-all duration-300 text-black ${
+                    focusedField === 'subject'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="message" className={`${labelText} font-semibold`}>
-                  <span className={labelSpanTextColor}>Mesaj *</span>
+              <div
+                className="flex flex-col gap-2 animate-in fade-in duration-300"
+                style={{ animationDelay: '300ms' }}
+              >
+                <Label htmlFor="message" className="text-black font-semibold text-sm">
+                  Mesaj <span className="text-green-600">*</span>
                 </Label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  placeholder="Mesajınız"
+                  onFocus={() => setFocusedField('message')}
+                  onBlur={() => setFocusedField(null)}
+                  placeholder="Mesajınızı buraya yazın..."
                   required
                   disabled={isSubmitting}
-                  className={`${accentBorder} ${accentFocus} bg-white min-h-[120px]`}
+                  className={`border-2 bg-white min-h-[120px] transition-all duration-300 resize-none text-black ${
+                    focusedField === 'message'
+                      ? 'border-green-400 ring-4 ring-green-400/20 shadow-lg shadow-green-400/10'
+                      : 'border-gray-200 hover:border-green-200'
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
                 />
               </div>
 
-              <Button type="submit" disabled={isSubmitting} className={buttonClass}>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold shadow-lg shadow-green-400/30 hover:shadow-xl hover:shadow-green-400/40 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-lg animate-in fade-in duration-300"
+                style={{ animationDelay: '350ms' }}
+              >
                 {isSubmitting ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    Gönderiliyor...
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>Gönderiliyor...</span>
                   </div>
                 ) : (
-                  'Gönder'
+                  <span>Gönder</span>
                 )}
               </Button>
             </form>

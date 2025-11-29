@@ -204,7 +204,7 @@ export async function sendEmail(data: EmailData) {
 
     const result = await resend.emails.send({
       from: process.env.FROM_EMAIL || 'Türkmener Grup <noreply@turkmenergrup.com>',
-      to: [process.env.ADMIN_EMAIL || 'admin@turkmenergrup.com'],
+      to: [process.env.ADMIN_EMAIL || 'altug@digitalvoyage.agency'],
       subject: emailSubject,
       html: emailHtml,
       replyTo: email,

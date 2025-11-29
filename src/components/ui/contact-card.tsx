@@ -1,19 +1,21 @@
-import React from 'react'
+'use client'
+
+import type React from 'react'
 import { cn } from '@/lib/utils'
 import { LucideIcon, PlusIcon } from 'lucide-react'
 
-type ContactInfoProps = React.ComponentProps<'div'> & {
+export type ContactInfoProps = React.ComponentProps<'div'> & {
   icon: LucideIcon
   label: string
   value: string
 }
 
-type ContactCardProps = React.ComponentProps<'div'> & {
-  // Content props
+export type ContactCardProps = React.ComponentProps<'div'> & {
   title?: React.ReactNode
   description?: React.ReactNode
   contactInfo?: ContactInfoProps[]
   formSectionClassName?: string
+  children?: React.ReactNode
 }
 
 export function ContactCard({
@@ -39,11 +41,9 @@ export function ContactCard({
       <PlusIcon className="absolute -right-3 -bottom-3 h-6 w-6" />
       <div className="flex flex-col justify-between lg:col-span-2">
         <div className="relative h-full space-y-4 px-4 py-8 md:p-8">
-          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">{title}</h1>
-          <p className="text-muted-foreground max-w-xl text-sm md:text-base lg:text-lg">
-            {description}
-          </p>
-          <div className="grid gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+          <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl text-black">{title}</h1>
+          <p className="max-w-xl text-sm md:text-base lg:text-lg text-black">{description}</p>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {contactInfo?.map((info, index) => (
               <ContactInfo key={index} {...info} />
             ))}
@@ -66,13 +66,12 @@ function ContactInfo({ icon: Icon, label, value, className, ...props }: ContactI
   return (
     <div className={cn('flex items-center gap-3 py-3', className)} {...props}>
       <div className="bg-muted/40 rounded-lg p-3">
-        <Icon className="h-5 w-5" />
+        <Icon className="h-5 w-5 text-black" />
       </div>
       <div>
-        <p className="font-medium">{label}</p>
-        <p className="text-muted-foreground text-xs">{value}</p>
+        <p className="font-medium text-black">{label}</p>
+        <p className="text-xs text-black">{value}</p>
       </div>
     </div>
   )
 }
-

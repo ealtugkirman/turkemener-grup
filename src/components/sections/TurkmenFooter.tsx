@@ -109,7 +109,7 @@ export function TurkmenFooter() {
               <div className="flex items-start">
                 <Mail className="h-5 w-5 mr-3 text-[#bde094] flex-shrink-0 mt-0.5" />
                 <span className="text-white/70 text-sm font-lato font-light">
-                  info@turkmenergrup.com
+                  iletisim@turkmenergrup.com
                 </span>
               </div>
             </div>

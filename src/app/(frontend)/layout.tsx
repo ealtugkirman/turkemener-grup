@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ViewTransitions } from 'next-view-transitions'
+import Script from 'next/script'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
@@ -76,6 +77,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
         </head>
         <body className={cn(GeistSans.variable, GeistMono.variable, 'antialiased font-sans')}>
+          {/* Google Analytics */}
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-Z8DX1BQ82S"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-Z8DX1BQ82S');
+            `}
+          </Script>
+
           <Providers>
             <AdminBar
               adminBarProps={{
