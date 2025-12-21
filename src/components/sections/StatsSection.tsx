@@ -152,7 +152,7 @@ export const StatsSection = () => {
   const currentHeadings = HEADINGS[locale] || HEADINGS.tr
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white" data-navbar-theme="light">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto text-center mb-16">
           <span

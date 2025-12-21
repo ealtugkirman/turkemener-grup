@@ -112,27 +112,25 @@ export function Navbar1({ items: _items, children, logoHref = '/' }: NavbarProps
     const averageLuminance = totalSamples > 0 ? luminanceSum / totalSamples : 0
     let isLight = totalSamples > 0 && lightCount / totalSamples > 0.5 && averageLuminance > 0.5
 
-    // Force dark background on non-home pages
-    if (!isHomePage) {
-      isLight = false
-    }
-
-    setIsLightBackground(isLight)
-
-    // Also check for data-navbar-theme as fallback (only on home page)
-    if (isHomePage) {
-      const sections = document.querySelectorAll('[data-navbar-theme]')
-      for (const section of sections) {
-        const rect = section.getBoundingClientRect()
-        if (rect.top <= navbarCenter && rect.bottom >= navbarCenter) {
-          const theme = section.getAttribute('data-navbar-theme')
-          if (theme) {
-            setIsLightBackground(theme === 'light')
-          }
+    // Check for data-navbar-theme attribute (works on all pages)
+    const sections = document.querySelectorAll('[data-navbar-theme]')
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect()
+      if (rect.top <= navbarCenter && rect.bottom >= navbarCenter) {
+        const theme = section.getAttribute('data-navbar-theme')
+        if (theme) {
+          isLight = theme === 'light'
           break
         }
       }
     }
+
+    // Force dark background on non-home pages only if no data-navbar-theme is found
+    if (!isHomePage && sections.length === 0) {
+      isLight = false
+    }
+
+    setIsLightBackground(isLight)
   }
 
   React.useEffect(() => {
@@ -170,26 +168,18 @@ export function Navbar1({ items: _items, children, logoHref = '/' }: NavbarProps
   }, [])
 
   const getTextColor = () => {
-    // Force white text on non-home pages, use automatic contrast detection on home page
-    if (!isHomePage) {
-      return 'text-white'
-    }
+    // Use automatic contrast detection based on isLightBackground state
+    // This works for both home page and other pages with data-navbar-theme attribute
     return isLightBackground ? 'text-gray-900' : 'text-white'
   }
 
   const getHoverTextColor = () => {
-    // Force light hover text on non-home pages
-    if (!isHomePage) {
-      return 'hover:text-gray-100'
-    }
+    // Use automatic contrast detection based on isLightBackground state
     return isLightBackground ? 'hover:text-gray-700' : 'hover:text-gray-100'
   }
 
   const getUnderlineColor = () => {
-    // Force white underline on non-home pages
-    if (!isHomePage) {
-      return 'bg-gradient-to-r from-white to-gray-200'
-    }
+    // Use automatic contrast detection based on isLightBackground state
     return isLightBackground
       ? 'bg-gradient-to-r from-gray-900 to-gray-600'
       : 'bg-gradient-to-r from-white to-gray-200'
@@ -299,7 +289,7 @@ export function Navbar1({ items: _items, children, logoHref = '/' }: NavbarProps
 
                   {/* Dropdown Menu */}
                   {item.dropdown && activeDropdown === item.title && (
-                    <div 
+                    <div
                       className="absolute top-full left-0 pt-2 w-64 z-50"
                       onMouseEnter={() => setActiveDropdown(item.title)}
                       onMouseLeave={() => setActiveDropdown(null)}
