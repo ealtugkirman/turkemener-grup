@@ -182,7 +182,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                       asChild
                       className="w-full bg-[#bde094] hover:bg-[#a8d080] text-[#202d26] font-medium group-hover:scale-105 transition-all duration-300"
                     >
-                      <Link href={`/hizmetler/${service.slug}`}>
+                      <Link href="/faaliyet-alanlari">
                         Detayları Gör
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </Link>
@@ -217,7 +217,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                   asChild
                   className="bg-[#bde094] hover:bg-[#a8d080] text-[#202d26] font-medium"
                 >
-                  <Link href="/hizmetler">Tüm Hizmetleri Gör</Link>
+                  <Link href="/faaliyet-alanlari">Faaliyet Alanları</Link>
                 </Button>
                 <Button
                   asChild

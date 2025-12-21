@@ -186,8 +186,8 @@ export function TeamSection({ teamMembers }: TeamSectionProps) {
                     size="sm"
                     className="border-[#bde094] text-[#bde094] hover:bg-[#bde094] hover:text-[#202d26] transition-all duration-300"
                   >
-                    <Link href={`/ekibimiz/${member.slug}`}>
-                      Profili Gör
+                    <Link href="/hakkimizda">
+                      Hakkımızda
                       <ArrowRight className="ml-2 w-3 h-3" />
                     </Link>
                   </Button>
@@ -227,7 +227,7 @@ export function TeamSection({ teamMembers }: TeamSectionProps) {
                   variant="outline"
                   className="border-[#bde094] text-[#bde094] hover:bg-[#bde094] hover:text-[#202d26]"
                 >
-                  <Link href="/ekibimiz">Tüm Ekip</Link>
+                  <Link href="/hakkimizda">Hakkımızda</Link>
                 </Button>
               </div>
             </div>
