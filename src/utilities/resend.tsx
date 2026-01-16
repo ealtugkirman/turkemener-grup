@@ -5,7 +5,10 @@ import { Html, Head, Body, Container, Text, Section, Heading, Hr } from '@react-
 // Resend API Key kontrolü ve güvenli başlatma
 const getResendInstance = () => {
   if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY environment variable is not set!')
+    // Sadece production'da uyarı göster
+    if (process.env.NODE_ENV === 'production') {
+      console.error('RESEND_API_KEY environment variable is not set!')
+    }
     return null
   }
   return new Resend(process.env.RESEND_API_KEY)
